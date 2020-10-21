@@ -28,8 +28,6 @@ Blog.create({
     category,
     date:Date.now(),
     photo:"",
-    likes:0,
-    comments:0
     
 }).then((b)=>{
     console.log("created successfully")

@@ -6,7 +6,7 @@ date:{type:Date},
 body: {type: String, required:true},
 category: {type: String},
 commentNumber:{type:Number, default:0},
-comments:[{type:mongoose.Types.ObjectId,ref:'Comment'}],
+comments:[{type:mongoose.Types.ObjectId,ref:'Comment',}],
 Like:{type:Number, default:0}
 
  });
