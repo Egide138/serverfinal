@@ -39,7 +39,7 @@ Blog.create({
 
 }
 export const updateblog=function(req,res){
-    Blog.findOneAndUpdate({ _id: req.params.postId }).then((up)=>{
+    Blog.findOneAndUpdate({ _id: req.params.postId }, req.body, {new: true}).then((up)=>{
         console.log(up)
         res.status(200).json({message:"Blog updated!"})
     }).catch((err)=>{

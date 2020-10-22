@@ -5,10 +5,12 @@ import userRouter from './routers/userRouter.js'
 import blogRouter from './routers/blogRouter.js'
 import commentRouter from './routers/commentrouter.js'
 import dotenv from 'dotenv'
+import cors from 'cors'
 
 dotenv.config()
 
 const app=express()
+app.use(cors())
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
