@@ -26,9 +26,8 @@ export const postblog=async function  (req,res){
         const imgPath=req.files.image.tempFilePath;
         const cloud = pkg.v2;
         cloud.config(process.env.CLOUDINARY_URL);
-
-        
-    const photo= await cloud.uploader.destroy(imgPath);
+ 
+    const photo= await cloud.uploader.upload(imgPath, (_, result)=> result);
     console.log(photo)
         Blog.create({
             title,

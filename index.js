@@ -23,6 +23,7 @@ mongoose.connect(process.env.DATABASE_URL, {
     console.log("Data base connected!")
 })
 app.use(express.json())
+app.use(express.urlencoded({extended:false}))
 // app.get('/wifiname', function(req,res){
 //     wifiName().then(name=>{
 //         console.log(name)
