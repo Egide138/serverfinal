@@ -31,8 +31,8 @@ export const postcomment=function(req,res){
 
 }
 export const getcomment= function(req,res){
-    Comment.find().then((cmt)=>{
-        res.status(200).json({message:"Message found",message:cmt})
+    Blog.findById(req.params.postId).populate("comments").then((blog)=>{
+        res.status(200).json({message:"Message found",message:blog.comments})
     }).catch((err)=>{
         console.log(err)
         res.status(500).json({message:"comment failed"})
