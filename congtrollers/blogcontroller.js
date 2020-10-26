@@ -1,4 +1,4 @@
-
+import pkg from 'cloudinary'
 import Blog from '../models/blog.js'
 
 export const getblog=function(req,res){
@@ -18,24 +18,37 @@ export const deleteblog=function(req,res){
         res.status(500).json({message:"deletion failed"})
     })
 }
-export const postblog=function (req,res){
-    const title=req.body.title;
-    const body=req.body.body;
-    const category=req.body.category;
-Blog.create({
-    title,
-    body,
-    category,
-    date:Date.now(),
-    photo:"",
-    
-}).then((b)=>{
-    console.log("created successfully")
-    res.status(200).json({message:'blog created',post:b})
- }).catch((err)=>{
-     console.log(err)
-   res.status(500).json({message:'posting failed!'})
- })
+export const postblog=async function  (req,res){
+    try {
+        const title=req.body.title;
+        const body=req.body.body;
+        const category=req.body.category;
+        const imgPath=req.files.image.tempFilePath;
+        const cloud = pkg.v2;
+        cloud.config(process.env.CLOUDINARY_URL);
+
+        
+    const photo= await cloud.uploader.destroy(imgPath);
+    console.log(photo)
+        Blog.create({
+            title,
+            body,
+            category,
+            date:Date.now(),
+            photo:photo.url,
+            
+        }).then((b)=>{
+            console.log("created successfully")
+            res.status(200).json({message:'blog created',post:b})
+         }).catch((err)=>{
+             console.log(err)
+           res.status(500).json({message:'posting failed!'})
+         })
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).json(error)
+    }
 
 }
 export const updateblog=function(req,res){

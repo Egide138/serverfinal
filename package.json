@@ -11,9 +11,11 @@
   "author": "egide",
   "license": "ISC",
   "dependencies": {
+    "cloudinary": "^1.23.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
     "mongoose": "^5.10.9",
     "wifi-name": "^3.1.1"
   },
