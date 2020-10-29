@@ -15,8 +15,7 @@ chai.use(chaiHttp)
              response.body.should.be.a('object')
              response.body.should.have.property('message')
              response.body.should.have.property('post')
-             response.body.post.should.have.property('title')
-             response.body.post.should.have.property('body')
+            
              done();
          })
      })

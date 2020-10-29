@@ -11,10 +11,10 @@ export const postcomment=function(req,res){
     .then((output)=>{
         res.status(201).json({meassage:"created successful!", comment:output})
         Blog.findById(req.params.postId)
-        .then(foundPost=>{
+        .then( async foundPost=>{
             foundPost.comments.push(output._id)
             foundPost.commentNumber +=1
-            foundPost.save()
+            await foundPost.save()
      })
     })
     .catch((err)=>{
@@ -38,18 +38,20 @@ export const getcomment= function(req,res){
         res.status(500).json({message:"comment failed"})
     })
 }
+export const findcomment= function(req,res){
+Blog.findById(req.params.postId).then((output)=>{
+res.status(200).json({meassage:"post found!",comment:output})
+ })
+ }
 
-// export const deletecomment=function(req,res){
-//     Comment.findOneAndDelete({_id: req.params.commentId}).then((output)=>{
-//         console.log("comment deleted")
-//         res.status(200).json({message:"comment deleted!"})
+// export const commentnumber=function(req,res){
+//     Comment.findById({_id: req.params.commentId}).then((output)=>{
+//         output.commentnumber+=1
+//         output.save
+//         console.log("comment added")
+//         res.status(200).json({message:"number of comment saved!"})
 //     }).catch((err)=>{
 //         console.log(err)
-//         res.status(500).json({message:"deletion failed"})
+//         res.status(500).json({message:"failed"})
 //     })
 // }
-export const findcomment= function(req,res){
-    Blog.findById(req.params.postId).then((output)=>{
-    res.status(200).json({meassage:"post found!",comment:output})
-    })
-    }
