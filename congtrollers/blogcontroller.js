@@ -23,26 +23,25 @@ export const postblog=async function  (req,res){
         const title=req.body.title;
         const body=req.body.body;
         const category=req.body.category;
-        const imgPath=req.files.image.tempFilePath;
         const cloud = pkg.v2;
         cloud.config(process.env.CLOUDINARY_URL);
  
-    const photo= await cloud.uploader.upload(imgPath, (_, result)=> result);
-    console.log(photo)
-        Blog.create({
+     const post= await  Blog.create({
             title,
             body,
             category,
             date:Date.now(),
-            photo:photo.url,
+            photo:'',
             
-        }).then((b)=>{
-            console.log("created successfully")
-            res.status(200).json({message:'blog created',post:b})
-         }).catch((err)=>{
-             console.log(err)
-           res.status(500).json({message:'posting failed!'})
-         })
+        })
+            if(req.files){
+                
+        const imgPath=req.files.image.tempFilePath;
+        const result= await  cloud.uploader.upload(imgPath, (_, result)=> result)
+        post.photo=result.url
+        post.save()
+         }
+            res.status(200).json({message:'blog created',post})
         
     } catch (error) {
         console.log(error)
