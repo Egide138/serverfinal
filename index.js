@@ -12,7 +12,8 @@ dotenv.config()
 const app=express()
 app.use(cors())
 app.use(uploader({ useTempFiles: true }))
-mongoose.connect(process.env.DATABASE_URL, {
+
+mongoose.connect(process.env.NODE_ENV==='test'? process.env.DATABASE_TEST:process.env.DATABASE_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex:true
@@ -26,5 +27,5 @@ app.use(express.urlencoded({extended:false}))
 app.use('/blog',blogRouter)
 
 
-app.listen(process.env.PORT, console.log(`sever is runningon port ${process.env.PORT}`) );
+app.listen(process.env.PORT, console.log(`sever is running on port ${process.env.PORT}`) );
 export default app;

@@ -34,7 +34,7 @@ export const getcomment= function(req,res){
     Blog.findById(req.params.postId).populate("comments").then((blog)=>{
         res.status(200).json({message:"Message found",message:blog.comments})
     }).catch((err)=>{
-        console.log(err)
+        // console.log(err)
         res.status(500).json({message:"comment failed"})
     })
 }
@@ -44,14 +44,3 @@ res.status(200).json({meassage:"post found!",comment:output})
  })
  }
 
-// export const commentnumber=function(req,res){
-//     Comment.findById({_id: req.params.commentId}).then((output)=>{
-//         output.commentnumber+=1
-//         output.save
-//         console.log("comment added")
-//         res.status(200).json({message:"number of comment saved!"})
-//     }).catch((err)=>{
-//         console.log(err)
-//         res.status(500).json({message:"failed"})
-//     })
-// }
